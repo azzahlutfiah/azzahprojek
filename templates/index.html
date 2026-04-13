@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ profile.name }} — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ── CURSOR ── -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">A<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Beranda</a></li>
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#skills">Keahlian</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="home" class="hero">
+  <div class="hero-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="noise-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-tag reveal-up">
+        <span class="dot"></span> Tersedia untuk Project Baru
+      </div>
+      <h1 class="hero-name reveal-up" style="animation-delay:0.1s">
+        Halo, Saya<br>
+        <em>{{ profile.name.split(',')[0] }}</em>
+      </h1>
+      <div class="hero-role reveal-up" style="animation-delay:0.2s">
+        <span id="typewriter"></span><span class="cursor-blink">|</span>
+      </div>
+      <p class="hero-desc reveal-up" style="animation-delay:0.3s">
+        "{{ profile.tagline }}"<br>
+        <strong>{{ profile.motto }}</strong>
+      </p>
+      <div class="hero-cta reveal-up" style="animation-delay:0.4s">
+        <a href="#portfolio" class="btn-primary">Lihat Karya</a>
+        <a href="#contact" class="btn-ghost">Hubungi Saya</a>
+      </div>
+    </div>
+    <div class="hero-photo reveal-right" style="animation-delay:0.2s">
+      <div class="photo-frame">
+        <img src="{{ profile.photo }}" alt="{{ profile.name }}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="photo-placeholder">AZ</div>
+        <div class="photo-border-ring"></div>
+        <div class="photo-badge">
+          <span>S.Kom., Gr.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar reveal-up" style="animation-delay:0.5s">
+    {% for s in stats %}
+    <div class="stat-item">
+      <div class="stat-icon">{{ s.icon }}</div>
+      <div class="stat-num">{{ s.value }}</div>
+      <div class="stat-label">{{ s.label }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <a href="#about" class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </a>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about" class="about">
+  <div class="container">
+    <div class="section-tag reveal-up">// Tentang Saya</div>
+    <div class="about-grid">
+      <div class="about-text reveal-left">
+        <h2 class="section-title">Saya adalah <em>Web Developer</em></h2>
+        <p>Saya terbiasa mengembangkan website dan aplikasi web yang <strong>responsif, aman, dan efisien</strong>, serta memiliki kemampuan menyampaikan materi teknis secara sistematis dan mudah dipahami.</p>
+        <p>Kombinasi latar belakang teknologi dan pendidikan membuat saya tidak hanya fokus pada hasil teknis, tetapi juga pada <em>proses, dokumentasi, dan keberlanjutan pengembangan.</em></p>
+
+        <div class="about-details">
+          <div class="detail-row">
+            <span class="detail-key">📍 Lokasi</span>
+            <span class="detail-val">{{ profile.address }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-key">📧 Email</span>
+            <span class="detail-val"><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-key">🎓 Pendidikan</span>
+            <span class="detail-val">S.Kom., Guru (Gr.)</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-key">💼 Status</span>
+            <span class="detail-val available">● Tersedia</span>
+          </div>
+        </div>
+
+        <div class="social-links">
+          {% for platform, url in profile.social.items() %}
+          <a href="{{ url }}" target="_blank" class="social-btn social-{{ platform }}" title="{{ platform }}">
+            {{ platform[:2].upper() }}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="about-visual reveal-right">
+        <div class="visual-card">
+          <div class="vc-header">
+            <div class="vc-dots">
+              <span style="background:#ff5f56"></span>
+              <span style="background:#ffbd2e"></span>
+              <span style="background:#27c93f"></span>
+            </div>
+            <span class="vc-title">portfolio.py</span>
+          </div>
+          <div class="vc-body">
+<pre><code><span class="kw">class</span> <span class="cl">AzzahLutfiyah</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self):
+        self.name    = <span class="str">"Azzah Lutfiyah"</span>
+        self.role    = <span class="str">"Web Developer"</span>
+        self.degree  = <span class="str">"S.Kom., Gr."</span>
+        self.skills  = [
+            <span class="str">"Python"</span>, <span class="str">"JavaScript"</span>,
+            <span class="str">"PHP/Laravel"</span>, <span class="str">"React.js"</span>,
+            <span class="str">"MySQL"</span>, <span class="str">"HTML/CSS"</span>,
+        ]
+
+    <span class="kw">def</span> <span class="fn">get_passion</span>(self):
+        <span class="kw">return</span> {
+            <span class="str">"build"</span>: <span class="str">"web apps"</span>,
+            <span class="str">"teach"</span>: <span class="str">"technology"</span>,
+            <span class="str">"create"</span>: <span class="str">"content"</span>,
+        }
+
+<span class="cm"># Initialize!</span>
+me = <span class="cl">AzzahLutfiyah</span>()
+</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills" class="skills">
+  <div class="container">
+    <div class="section-tag reveal-up">// Keahlian</div>
+    <h2 class="section-title text-center reveal-up">Tech <em>Stack</em></h2>
+    <p class="section-sub reveal-up">Teknologi yang saya kuasai untuk membangun solusi digital</p>
+
+    <div class="skills-grid">
+      {% for skill in skills %}
+      <div class="skill-card reveal-up" style="animation-delay:{{ loop.index0 * 0.08 }}s">
+        <div class="skill-top">
+          <span class="skill-name">{{ skill.name }}</span>
+          <span class="skill-pct" style="color:{{ skill.color }}">{{ skill.level }}%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-fill" data-width="{{ skill.level }}" style="background:{{ skill.color }}"></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── PORTFOLIO ── -->
+<section id="portfolio" class="portfolio">
+  <div class="container">
+    <div class="section-tag reveal-up">// Portfolio</div>
+    <h2 class="section-title text-center reveal-up">Project <em>Terbaru</em></h2>
+    <p class="section-sub reveal-up">Wujud kreativitas dan kemampuan dalam merancang sistem yang efektif dan efisien</p>
+
+    <!-- Filter -->
+    <div class="filter-bar reveal-up">
+      <button class="filter-btn active" data-filter="all">Semua</button>
+      <button class="filter-btn" data-filter="Web App">Web App</button>
+      <button class="filter-btn" data-filter="Company Profile">Company Profile</button>
+      <button class="filter-btn" data-filter="Game">Game</button>
+      <button class="filter-btn" data-filter="Platform">Platform</button>
+    </div>
+
+    <div class="portfolio-grid" id="portfolioGrid">
+      {% for p in projects %}
+      <div class="proj-card reveal-up" data-category="{{ p.category }}" style="animation-delay:{{ loop.index0 * 0.07 }}s">
+        <div class="proj-img">
+          <img src="{{ p.image }}" alt="{{ p.title }}" loading="lazy" onerror="this.parentElement.style.background='{{ p.color }}20'">
+          <div class="proj-overlay">
+            {% if p.url != '#' %}
+            <a href="{{ p.url }}" target="_blank" class="proj-link">Lihat Project →</a>
+            {% else %}
+            <span class="proj-link" style="opacity:0.6">Private Project</span>
+            {% endif %}
+          </div>
+          <div class="proj-tag" style="background:{{ p.color }}20; color:{{ p.color }}; border-color:{{ p.color }}40">{{ p.tag }}</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-cat">{{ p.category }}</div>
+          <h3 class="proj-title">{{ p.title }}</h3>
+          <p class="proj-desc">{{ p.desc }}</p>
+          <div class="proj-tech">
+            {% for t in p.tech %}
+            <span class="tech-pill">{{ t }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── CLIENTS ── -->
+<section class="clients">
+  <div class="container">
+    <div class="section-tag reveal-up" style="text-align:center">// Bekerjasama</div>
+    <div class="clients-track">
+      <div class="clients-inner">
+        {% for c in clients %}
+        <div class="client-item">{{ c }}</div>
+        {% endfor %}
+        {% for c in clients %}
+        <div class="client-item">{{ c }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BLOG ── -->
+<section id="blog" class="blog">
+  <div class="container">
+    <div class="section-tag reveal-up">// Blog</div>
+    <h2 class="section-title reveal-up">Tulisan <em>Terkini</em></h2>
+    <p class="section-sub reveal-up">Insight seputar web development dan dunia pendidikan</p>
+
+    <div class="blog-grid">
+      {% for b in blogs %}
+      <a href="{{ b.url }}" target="_blank" class="blog-card reveal-up" style="animation-delay:{{ loop.index0 * 0.1 }}s">
+        <div class="blog-tag">{{ b.tag }}</div>
+        <div class="blog-date">{{ b.date }}</div>
+        <h3 class="blog-title">{{ b.title }}</h3>
+        <p class="blog-excerpt">{{ b.excerpt }}</p>
+        <div class="blog-read">Baca Selengkapnya →</div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-tag reveal-up" style="text-align:center">// Kontak</div>
+    <h2 class="section-title text-center reveal-up">Mari <em>Berkolaborasi</em></h2>
+    <p class="section-sub reveal-up">Punya proyek menarik? Hubungi saya dan mari wujudkan bersama!</p>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal-left">
+        <div class="contact-card">
+          <div class="cc-icon">📧</div>
+          <div class="cc-label">Email</div>
+          <a href="mailto:{{ profile.email }}" class="cc-value">{{ profile.email }}</a>
+        </div>
+        <div class="contact-card">
+          <div class="cc-icon">📍</div>
+          <div class="cc-label">Lokasi</div>
+          <div class="cc-value">{{ profile.address }}</div>
+        </div>
+        <div class="contact-card">
+          <div class="cc-icon">🌐</div>
+          <div class="cc-label">Website</div>
+          <a href="https://myazzahlutfiah.netlify.app" target="_blank" class="cc-value">myazzahlutfiah.netlify.app</a>
+        </div>
+        <div class="social-links" style="margin-top:1.5rem">
+          {% for platform, url in profile.social.items() %}
+          <a href="{{ url }}" target="_blank" class="social-btn social-{{ platform }}" title="{{ platform }}">
+            {{ platform[:2].upper() }}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <form class="contact-form reveal-right" id="contactForm">
+        <div class="form-group">
+          <label for="name">Nama Lengkap</label>
+          <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="email@contoh.com" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Pesan</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tulis pesan Anda di sini..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary full" id="submitBtn">
+          <span id="btnText">Kirim Pesan</span>
+          <span id="btnLoading" style="display:none">Mengirim...</span>
+        </button>
+        <div id="formMsg" class="form-msg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-logo">A<span>.</span></div>
+    <p class="footer-copy">
+      Dibuat dengan ❤️ & <strong>Python/Flask</strong> oleh
+      <a href="{{ profile.social.instagram }}" target="_blank">{{ profile.name }}</a>
+      &copy; {{ year }}
+    </p>
+    <div class="footer-links">
+      <a href="#home">Beranda</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Kontak</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#home" class="back-to-top" id="backToTop">↑</a>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
